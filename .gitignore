@@ -1,0 +1,27 @@
+# Archivos de Python compilados
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Entornos virtuales
+venv/
+env/
+.venv/
+
+# Configuraciones de IDE
+.vscode/
+.idea/
+
+# Archivos de datos grandes o temporales
+*.xlsx
+*.csv
+*.pkl
+*.db
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Claves API u otros secretos
+.env

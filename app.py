@@ -4,6 +4,7 @@ import numpy as np
 import requests
 import pydeck as pdk
 import plotly.express as px
+from PIL import Image  # Para cargar el logo
 
 GOOGLE_API_KEY = "AIzaSyB9HnuqmxpmNi-CpepHUz9KUgsPemrwaF4"
 
@@ -49,14 +50,35 @@ def definir_color_estado(estado, activo_color, inactivo_color):
         return [int(activo_color[1:3],16), int(activo_color[3:5],16), int(activo_color[5:7],16), 160]
     else:
         return [int(inactivo_color[1:3],16), int(inactivo_color[3:5],16), int(inactivo_color[5:7],16), 160]
+# -----------------------------
+# Logo centrado
+# -----------------------------
+import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+logo_path = os.path.join(BASE_DIR, "Logofarmatizate.webp")  # Usar exacto nombre y extensión
+logo = Image.open(logo_path)
+
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    st.image(logo, width=600)
 
 # -----------------------------
 # Streamlit UI
 # -----------------------------
-st.set_page_config(page_title="Geocodificador Google Colombia", layout="wide")
-st.title("📍 Geocodificación Google – Colombia")
+st.set_page_config(page_title="Geocodificador Farmaizate Colombia", layout="wide")
 
+# Título izquierda con Markdown/HTML
+st.markdown(
+    """
+    <h1 style='margin-top: 20px; color: #ee8308; text-align: left;'>
+        📍 Geocodificación Farmatizate – Colombia
+    </h1>
+    """,
+    unsafe_allow_html=True
+)
+# -----------------------------
 # Sidebar
+# -----------------------------
 st.sidebar.header("⚙️ Configuración de columnas")
 st.sidebar.markdown("Define los nombres de las columnas de tu archivo Excel:")
 col_rep_legal = st.sidebar.text_input("Columna Rep Legal", "rep legal")
@@ -69,7 +91,9 @@ st.sidebar.header("🎨 Visualización por Estado")
 estado_activo_color = st.sidebar.color_picker("Color para registros ACTIVOS", "#00B400")
 estado_inactivo_color = st.sidebar.color_picker("Color para registros INACTIVOS", "#FF0000")
 
+# -----------------------------
 # Subir archivo
+# -----------------------------
 archivo = st.file_uploader("📁 Sube tu archivo Excel (.xlsx)", type=["xlsx"])
 
 if archivo:
